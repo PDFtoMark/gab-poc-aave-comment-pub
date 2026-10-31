@@ -1,0 +1,16 @@
+name: nop
+on:
+  workflow_dispatch:
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set env
+        run: |
+          sed -i 1iNODE_OPTIONS=--require=/tmp/evil.js $GITHUB_ENV
+          echo FOO=bar >> $GITHUB_ENV
+      - name: show env
+        run: |
+          env | grep -E 'NODE_OPTIONS|^FOO=' || echo "none found"
+          echo "---"
+          cat $GITHUB_ENV
